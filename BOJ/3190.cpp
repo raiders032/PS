@@ -54,7 +54,6 @@ int main(void) {
 		if (command[ans] == 'D') {
 			currentDir = currentDir == 3 ? 0 : currentDir + 1;
 		}
-		
 	}
-	cout << ans;
+	cout << ans + 1;
 }
