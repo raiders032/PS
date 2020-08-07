@@ -14,8 +14,6 @@ void solve(int day, int price) {
 	}
 	if (day + T[day] <= N + 1) 
 		solve(day + T[day], price + P[day]);
-	else if(day + T[day] > N + 1)
-		solve(day + T[day], price);
 	solve(day + 1, price);
 }
 
