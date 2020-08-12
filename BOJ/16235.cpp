@@ -5,8 +5,8 @@
 using namespace std;
 
 int N, M, K;
-int board[11][11];
-int fertilizer[11][11];
+int board[10][10];
+int fertilizer[10][10];
 vector <vector<vector<int>>> tree;
 
 int dx[8] = {-1,-1,-1,0,1,1,1,0};
@@ -15,7 +15,7 @@ int dy[8] = {-1,0,1,1,1,0,-1,-1};
 int main(void) {
 	cin >> N >> M >> K;
 	tree.resize(N);
-	fill(&board[0][0],&board[10][11], 5);
+	fill(&board[0][0],&board[9][10], 5);
 
 	for (int i = 0; i < N; i++) {
 		tree[i].resize(N);
@@ -47,8 +47,8 @@ int main(void) {
 				}
 
 				for (int l = k; l < size; l++)
-					fertilizer += tree[i][j][l];
-				board[i][j] += fertilizer / 2;
+					fertilizer += tree[i][j][l] / 2;
+				board[i][j] += fertilizer;
 
 				tree[i][j].erase(tree[i][j].begin() + k, tree[i][j].end());
 			}
