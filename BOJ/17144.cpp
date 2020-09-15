@@ -5,13 +5,9 @@ using namespace std;
 int R, C, T;
 int board[50][50];
 int after_board[50][50];
-int fx;
-int fy;
-int sx;
-int sy;
+int fx,fy,sx,sy;
 int dx[4] = {-1,0,1,0};
 int dy[4] = {0,1,0,-1};
-
 
 void diffuse() {
 	memset(after_board, 0, sizeof(after_board));
@@ -44,7 +40,6 @@ void purify() {
 	int y = fy;
 	while (true) {
 		if ((x == 0 && y == 0) || (x == 0 && y == C - 1) || (x == fx && y == C - 1))
-		
 			dir++;
 		int nx = x + dx[dir];
 		int ny = y + dy[dir];
