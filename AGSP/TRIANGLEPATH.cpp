@@ -1,25 +1,32 @@
 /*
- 1. 참조적 투명성을 만족하는가? yes
- 2. 동적 계획법을 적용하자.
- 3. cache 초기화
- 4. 기저사례 처리
- 5. cache의 참조형 반환
+ 1.참조적 투명성을 만족한다.
+ 2.캐시 초기화
+ 3.기저사례 처리
+ 4.캐시의 참조형을 반환한다.
+
+ 레시피
+ 1.완전 탐색으로 풀이
+ 2.중복되는 문제를 메모이제이션
 */
+
 #include<iostream>
-#include<string.h>
 #include<algorithm>
+#include<string.h>
 
 using namespace std;
 
-int cache[100][100];
-int board[100][100];
 int N;
+int board[100][100];
+int cache[100][100];
 
-int solve(int r, int c) {
-	if (r == N - 1 ) return board[r][c];
-	int& result = cache[r][c];
-	if (result != -1) return result;
-	return result = board[r][c] + max(solve(r + 1, c), solve(r + 1, c + 1));
+int solve(int x, int y) {
+	if (x == N)
+		return 0;
+	int& result = cache[x][y];
+	if (result != -1)
+		return result;
+
+	return result = (board[x][y] + max(solve(x + 1, y), solve(x + 1, y + 1)));
 }
 
 int main(void) {
@@ -33,6 +40,6 @@ int main(void) {
 				cin >> board[i][j];
 			}
 		}
-		cout<<solve(0, 0)<<"\n";
+		cout << solve(0, 0) << "\n";
 	}
 }
