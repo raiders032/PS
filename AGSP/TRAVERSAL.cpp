@@ -3,42 +3,36 @@
 
 using namespace std;
 
-vector<int> slice(const vector<int>& v, int a, int b) {
+vector <int> slice(const vector<int>& v, int a, int b) {
 	return vector<int>(v.begin() + a, v.begin() + b);
 }
 
-void printPostOrder(const vector<int>& preOrder, const vector<int>& inOrder) {
-	int N = preOrder.size();
+void printPost(const vector<int>& pre, const vector<int>& in) {
+	int N = pre.size();
 	if (N == 0)
 		return;
-	int root = preOrder[0];
-	int L = find(inOrder.begin(), inOrder.end(), root) - inOrder.begin();
-	int R = N - L -1;
+	int root = pre[0];
+	int L = find(in.begin(), in.end(), root) - in.begin();
+	int R = N - L - 1;
 
-	printPostOrder(slice(preOrder, 1, L+1), slice(inOrder,  0 ,L));
-	printPostOrder(slice(preOrder, L + 1, N ), slice(inOrder, L + 1, N));
+	printPost(slice(pre,1,L + 1),slice(in, 0, L));
+	printPost(slice(pre, L+1, N), slice(in, L + 1, N));
 	cout << root << " ";
 }
 
 int main(void) {
+	int N;
 	int testCase;
 	cin >> testCase;
 	while (testCase--) {
-		int n;
-		vector<int> preOrder;
-		vector<int> inOrder;
-		cin >> n;
-		for (int i = 0; i < n; i++) {
-			int tmp;
-			cin >> tmp;
-			preOrder.push_back(tmp);
-		}
-		for (int i = 0; i < n; i++) {
-			int tmp;
-			cin >> tmp;
-			inOrder.push_back(tmp);
-		}
-		printPostOrder(preOrder, inOrder);
+		cin >> N;
+		vector<int> pre(N);
+		vector<int> in(N);
+		for (int i = 0; i < N; i++)
+			cin >> pre[i];
+		for (int i = 0; i < N; i++)
+			cin >> in[i];
+		printPost(pre, in);
 		cout << "\n";
 	}
 }
