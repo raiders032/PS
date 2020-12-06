@@ -1,25 +1,10 @@
-def isIn(num):
-    left = 0
-    right = N-1
-    while left <= right:
-        mid = (left + right) // 2
-        if num == cards[mid]:
-            return True
-        if num > cards[mid]:
-            left = mid + 1
-        else:
-            right = mid - 1
-    return False
-
-
 N = int(input())
-cards = list(map(int, input().split()))
-cards.sort()
+A = set(map(int, input().split()))
 M = int(input())
-arr = list(map(int, input().split()))
+B = list(map(int, input().split()))
 
-for x in arr:
-    if isIn(x):
+for x in B:
+    if x in A:
         print('1', end=' ')
     else:
         print('0', end=' ')
