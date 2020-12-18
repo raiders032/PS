@@ -1,12 +1,12 @@
-N, M = input().split()
-N = list(N)
-M = int(M)
+N, M = map(int, input().split())
+N = list(map(int, str(N)))
+stack = []
 res = 0
-for i in range(len(N)):
-    for j in range(i+1, min(len(N), i+M+1)):
-        if N[i] < N[j]:
-            M -= 1
-            break
-    else:
-        res = res * 10 + int(N[i])
+for x in N:
+    while M > 0 and stack and stack[-1] < x:
+        stack.pop()
+        M -= 1
+    stack.append(x)
+for x in stack:
+    res = res * 10 + x
 print(res // pow(10, M))
