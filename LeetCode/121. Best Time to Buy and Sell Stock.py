@@ -1,19 +1,20 @@
 """
-브루트 포스 -> Time Limit Exceeded
+카데인 알고리즘
+import sys
 class Solution:
     def maxProfit(self, prices: List[int]) -> int:
         res = 0
-        for i in range(len(prices)-1):
-            for j in range(i+1, len(prices)):
-                if prices[i] < prices[j]:
-                    res = max(res, prices[j] - prices[i])
+        min_price = sys.maxsize
+        for i in range(len(prices)):
+            min_price = min(min_price, prices[i])
+            res = max(res, prices[i] - min_price)
         return res
 """
-
-prices = [7, 6, 4, 3, 1]
+import sys
+prices = []
 res = 0
-for i in range(len(prices)-1):
-    for j in range(i+1, len(prices)):
-        if prices[i] < prices[j]:
-            res = max(res, prices[j] - prices[i])
+min_price = sys.maxsize
+for i in range(len(prices)):
+    min_price = min(min_price, prices[i])
+    res = max(res, prices[i] - min_price)
 print(res)
