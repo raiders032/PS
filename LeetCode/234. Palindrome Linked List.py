@@ -1,16 +1,17 @@
 """
 234. Palindrome Linked List
-리스트 변환 풀이
-"""
+덱 변환 풀이
+""
 
 # Definition for singly-linked list.
 # class ListNode:
 #     def __init__(self, val=0, next=None):
 #         self.val = val
 #         self.next = next
+from collections import deque
 class Solution:
     def isPalindrome(self, head: ListNode) -> bool:
-        q:list = []
+        q = deque()
         if not head:
             return True
 
@@ -19,6 +20,6 @@ class Solution:
             head = head.next
 
         while len(q)>1:
-            if q.pop(0) != q.pop():
+            if q.popleft() != q.pop():
                 return False
         return True
