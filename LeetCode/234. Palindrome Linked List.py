@@ -1,7 +1,7 @@
 """
 234. Palindrome Linked List
 덱 변환 풀이
-""
+"""
 
 # Definition for singly-linked list.
 # class ListNode:
