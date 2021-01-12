@@ -8,22 +8,17 @@ import sys
 N = int(sys.stdin.readline())
 T = [0]
 P = [0]
+dp = [0] * (N + 2)
 ans = 0
-
-
-def dfs(day, pay):
-    global ans
-    if day > N:
-        ans = max(ans, pay)
-        return
-    if day + T[day] <= N + 1:
-        dfs(day + T[day], pay + P[day])
-    dfs(day + 1, pay)
-
 
 for i in range(N):
     t, p = map(int, sys.stdin.readline().split())
     T.append(t)
     P.append(p)
-dfs(1, 0)
-print(ans)
+
+for i in range(1, N + 2):
+    for j in range(1, i):
+        if j + T[j] <= i:
+            dp[i] = max(dp[i], dp[j] + P[j])
+
+print(max(dp))
