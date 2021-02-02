@@ -2,6 +2,7 @@
 21.01.22/560ms
 15662.톱니바퀴 (2)
 실버2
+구현, 시뮬레이션
 """
 from collections import deque
 import sys
