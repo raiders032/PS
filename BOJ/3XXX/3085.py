@@ -1,46 +1,44 @@
 '''
-3085번 사탕게임 실버4
+3085번 사탕게임
+실버4
 브루트포스
+2번째 풀이 364ms
 '''
+import sys
+
+
+def check_length(x, y):
+    global res
+    row_cnt = 1
+    col_cnt = 1
+    for i in range(1, N):
+        if board[x][i] == board[x][i - 1]:
+            col_cnt += 1
+        else:
+            col_cnt = 1
+        res = max(res, col_cnt)
+    for i in range(1, N):
+        if board[i][y] == board[i - 1][y]:
+            row_cnt += 1
+        else:
+            row_cnt = 1
+        res = max(res, row_cnt)
+
+
+input = sys.stdin.readline
 dx = [-1, 0, 1, 0]
 dy = [0, 1, 0, -1]
-res = 0
 N = int(input())
-board = [list(input()) for _ in range(N)]
-
-
-def getCandy():
-    res = 0
-    for i in range(N):
-        count = 1
-        for j in range(N - 1):
-            if board[i][j] == board[i][j+1]:
-                count += 1
-            else:
-                res = max(res, count)
-                count = 1
-        res = max(res, count)
-
-        count = 1
-        for j in range(N - 1):
-            if board[j][i] == board[j+1][i]:
-                count += 1
-            else:
-                res = max(res, count)
-                count = 1
-        res = max(res, count)
-    return res
-
-
-for i in range(0, N * N, 2):
-    for d in range(4):
-        x = i // N
-        y = i % N
-        nx = x + dx[d]
-        ny = y + dy[d]
-        if 0 > nx or nx >= N or 0 > ny or ny >= N:
-            continue
-        board[x][y], board[nx][ny] = board[nx][ny], board[x][y]
-        res = max(res, getCandy())
-        board[x][y], board[nx][ny] = board[nx][ny], board[x][y]
+board = [list(input().rstrip()) for _ in range(N)]
+res = 1
+for x in range(N):
+    for y in range(N):
+        for d in range(4):
+            nx = x + dx[d]
+            ny = y + dy[d]
+            if nx < 0 or nx >= N or ny < 0 or ny >= N:
+                continue
+            board[x][y], board[nx][ny] = board[nx][ny], board[x][y]
+            check_length(x, y)
+            board[x][y], board[nx][ny] = board[nx][ny], board[x][y]
 print(res)
