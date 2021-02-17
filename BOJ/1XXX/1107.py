@@ -1,24 +1,33 @@
 """
-1107번 리모컨 골드5
+1107번 리모컨
+골드5
 브루트포스
+풀이 2: 5236 ms
 """
-
 import sys
 
+
+def dfs(level, num):
+    global res
+    if level:
+        res = min(res, abs(num - channel) + level)
+        if level == limit:
+            return
+    for i in range(10):
+        if is_broken[i]:
+            continue
+        dfs(level + 1, num * 10 + i)
+
+
+input = sys.stdin.readline
+channel = int(input())
+limit = len(str(channel))+1
+M = int(input())
+res = abs(channel - 100)
 is_broken = [False] * 10
-N = int(sys.stdin.readline())
-M = int(sys.stdin.readline())
-res = abs(N - 100)
-
-for x in map(int, sys.stdin.readline().rstrip().split()):
-    is_broken[x] = True
-
-for num in range(1000000):
-    for digit in set(map(int, str(num))):
-        if is_broken[digit]:
-            break
-    else:
-        res = min(res, abs(N - num) + len(str(num)))
+for i in list(map(int, input().rstrip().split())):
+    is_broken[i] = True
+dfs(0, 0)
 print(res)
 
 """
@@ -41,4 +50,24 @@ print(res)
 3
 7 8 9
 116
+
+6
+9
+0 2 3 4 5 6 7 8 9
+6
+
+11 
+8 
+1 3 4 5 6 7 8 9
+10
+
+12 
+9 
+0 1 3 4 5 6 7 8 9
+11
+
+0
+1
+1
+1
 """
