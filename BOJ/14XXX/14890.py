@@ -2,91 +2,105 @@
 14890.경사로
 골드3
 구현
+풀이2.68ms
 """
 import sys
 
 input = sys.stdin.readline
 N, L = map(int, input().split())
 board = [list(map(int, input().split())) for _ in range(N)]
-check = [[False] * N for _ in range(N)]
+row_check = [[False, False] * N for _ in range(N)]
+col_check = [[False, False] * N for _ in range(N)]
+dx = [0, 1]
+dy = [1, 0]
 res = 0
 
-for r in range(N):
-    is_ok = True
-    for c in range(N - 1):
-        if abs(board[r][c] - board[r][c + 1]) > 1:
-            is_ok = False
+
+def make_ramp(x, y, dir):
+    nx = x + dx[dir]
+    ny = y + dy[dir]
+
+    if board[x][y] == board[nx][ny]:
+        return True
+
+    elif abs(board[nx][ny] - board[x][y]) > 1:
+        return False
+
+    elif board[x][y] + 1 == board[nx][ny]:
+        if dir == 0:
+            start = y - L + 1
+            end = y
+            if start < 0:
+                return False
+
+            for i in range(start, end):
+                if board[x][i] != board[x][i + 1]:
+                    return False
+
+            for i in range(start, end + 1):
+                if row_check[x][i]:
+                    return False
+
+            for i in range(start, end + 1):
+                row_check[x][i] = True
+        else:
+            start = x - L + 1
+            end = x
+
+            if start < 0:
+                return False
+
+            for i in range(start, end):
+                if board[i][y] != board[i + 1][y]:
+                    return False
+
+            for i in range(start, end + 1):
+                if col_check[i][y]:
+                    return False
+
+            for i in range(start, end + 1):
+                col_check[i][y] = True
+    else:
+        if dir == 0:
+            start = y + 1
+            end = y + L
+
+            if end >= N:
+                return False
+
+            for i in range(start, end):
+                if board[x][i] != board[x][i + 1]:
+                    return False
+
+            for i in range(start, end + 1):
+                row_check[x][i] = True
+        else:
+            start = x + 1
+            end = x + L
+
+            if end >= N:
+                return False
+
+            for i in range(start, end):
+                if board[i][y] != board[i + 1][y]:
+                    return False
+
+            for i in range(start, end + 1):
+                col_check[i][y] = True
+    return True
+
+
+for i in range(N):
+    for j in range(N - 1):
+        if not make_ramp(i, j, 0):
             break
-        if board[r][c] == board[r][c + 1]:
-            continue
-        elif board[r][c] - 1 == board[r][c + 1]:
-            if c + L >= N:
-                is_ok = False
-                break
-            for i in range(c + 1, c + L):
-                if board[r][i] != board[r][i + 1]:
-                    is_ok = False
-                    break
-            if is_ok:
-                for i in range(c + 1, c + L + 1):
-                    check[r][i] = True
-        elif board[r][c] + 1 == board[r][c + 1]:
-            if c - L + 1 < 0:
-                is_ok = False
-                break
-            for i in range(c - L + 1, c):
-                if board[r][i] != board[r][i + 1]:
-                    is_ok = False
-                    break
-            for i in range(c - L + 1, c + 1):
-                if check[r][i]:
-                    is_ok = False
-                    break
-            if is_ok:
-                for i in range(c - L + 1, c + 1):
-                    check[r][i] = True
-    if is_ok:
+    else:
         res += 1
 
-check = [[False] * N for _ in range(N)]
-for c in range(N):
-    is_ok = True
-    for r in range(N - 1):
-        if abs(board[r][c] - board[r + 1][c]) > 1:
-            is_ok = False
+    for j in range(N - 1):
+        if not make_ramp(j, i, 1):
             break
-
-        if board[r][c] == board[r + 1][c]:
-            continue
-
-        elif board[r][c] - 1 == board[r + 1][c]:
-            if r + L >= N:
-                is_ok = False
-                break
-            for i in range(r + 1, r + L):
-                if board[i][c] != board[i + 1][c]:
-                    is_ok = False
-                    break
-            if is_ok:
-                for i in range(r + 1, r + L + 1):
-                    check[i][c] = True
-
-        elif board[r][c] + 1 == board[r + 1][c]:
-            if r - L + 1 < 0:
-                is_ok = False
-                break
-            for i in range(r - L + 1, r):
-                if board[i][c] != board[i + 1][c]:
-                    is_ok = False
-                    break
-            for i in range(r - L + 1, r + 1):
-                if check[i][c]:
-                    is_ok = False
-                    break
-            if is_ok:
-                for i in range(r - L + 1, r + 1):
-                    check[i][c] = True
-    if is_ok:
+    else:
         res += 1
 
 print(res)
