@@ -3,28 +3,30 @@ https://www.acmicpc.net/problem/14002
 14002. 가장 긴 증가하는 부분 수열 4
 골드4
 다이나믹프로그래밍
-풀이1.172ms
+풀이2.168ms
 """
 import sys
 
-N = int(sys.stdin.readline())
-arr = list(map(int, sys.stdin.readline().rstrip().split()))
-dp = [(1, 0) for _ in range(N)]
-max_len, max_idx = 1, 0
+input = sys.stdin.readline
+N = int(input())
+arr = list(map(int, input().split()))
+dp = [1] * N
+parent = [-1] * N
+
+for current_index in range(1, N):
+    for pre_index in range(0, current_index):
+        if arr[current_index] <= arr[pre_index]:
+            continue
+        if dp[current_index] < dp[pre_index] + 1:
+            dp[current_index] = dp[pre_index] + 1
+            parent[current_index] = pre_index
+
+index = dp.index(max(dp))
+length = dp[index]
 lis = []
-for cur in range(1, N):
-    for pre in range(cur):
-        if arr[pre] < arr[cur] and dp[cur][0] < dp[pre][0] + 1:
-            dp[cur] = (dp[pre][0] + 1, pre)
-            if max_len < dp[cur][0]:
-                max_len = dp[cur][0]
-                max_idx = cur
-
-while max_idx:
-    lis.append(arr[max_idx])
-    max_idx = dp[max_idx][1]
-lis.append(arr[max_idx])
-
-print(max_len)
-for i in range(max_len - 1, -1, -1):
-    print(lis[i], end=' ')
+while parent[index] != -1:
+    lis.append(arr[index])
+    index = parent[index]
+lis.append(arr[index])
+print(length)
+print(*lis[::-1])
