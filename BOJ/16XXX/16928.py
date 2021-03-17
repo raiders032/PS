@@ -3,40 +3,50 @@ https://www.acmicpc.net/problem/16928
 16928.뱀과 사다리 게임
 실버2
 BFS
-풀이1. 1336ms
+풀이2.96ms
 """
-
 import sys
 from collections import deque
-N, M = map(int, sys.stdin.readline().split())
-jump = dict()
-visited = [0] * (101)
 
 
-def bfs(x):
-    q = deque()
-    visited[x] = 1
-    q.append(x)
+def solve():
+    q = deque([0])
+    visited = [[0] * 10 for _ in range(10)]
+    visited[0][0] = 1
+
     while q:
-        x = q.popleft()
-        if x == 100:
-            return visited[x] - 1
-        if x in jump:
-            nx = jump[x]
-            if visited[nx] and visited[nx] < visited[x]:
+        current_position = q.popleft()
+        current_position_x = current_position // 10
+        current_position_y = current_position % 10
+        if current_position == 99:
+            return visited[9][9] - 1
+
+        for dice_num in range(1, 7):
+            next_position = current_position + dice_num
+
+            if next_position >= 100 or visited[next_position // 10][next_position % 10]:
                 continue
-            visited[nx] = visited[x]
-            q.appendleft(nx)
-        else:
-            for nx in range(x+1, x+7):
-                if nx > 100 or (visited[nx] and visited[nx] < visited[x] + 1):
+
+            visited[next_position // 10][next_position % 10] = visited[current_position_x][current_position_y] + 1
+
+            if board[next_position // 10][next_position % 10]:
+                next_position = board[next_position // 10][next_position % 10]
+                if visited[next_position // 10][next_position % 10]:
                     continue
-                visited[nx] = visited[x] + 1
-                q.append(nx)
+                visited[next_position // 10][next_position % 10] = visited[current_position_x][current_position_y] + 1
+
+            q.append(next_position)
+    return -1
 
 
-for _ in range(N+M):
-    x, y = map(int, sys.stdin.readline().split())
-    jump[x] = y
+input = sys.stdin.readline
+N, M = map(int, input().split())
+board = [[0] * 10 for _ in range(10)]
 
-print(bfs(1))
+for i in range(N + M):
+    x, y = map(int, input().split())
+    x -= 1
+    y -= 1
+    board[x // 10][x % 10] = y
+
+print(solve())
