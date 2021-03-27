@@ -1,24 +1,28 @@
 """
+https://www.acmicpc.net/problem/1759
 1759. 암호 만들기
 골드5
 백트래킹, 브루트포스, 조합론
+풀이2.88ms
 """
 
-N, M = map(int, input().split())
-vowels = {'a', 'e', 'i', 'o', 'u'}
-chars = list(input().split())
-chars.sort()
 
-
-def dfs(idx, password, v_num):
-    if len(password) == N and v_num >= 1 and len(password) - v_num >= 2:
+def dfs(level, vowel_cnt, password):
+    if level == C:
+        if len(password) != L or vowel_cnt < 1 or len(password) - vowel_cnt < 2:
+            return
         print(password)
         return
-    for i in range(idx, M):
-        if chars[i] in vowels:
-            dfs(i + 1, password + chars[i], v_num + 1)
-        else:
-            dfs(i + 1, password + chars[i], v_num)
 
+    if string[level] in vowels:
+        dfs(level + 1, vowel_cnt + 1, password + string[level])
+    else:
+        dfs(level + 1, vowel_cnt, password + string[level])
 
-dfs(0, '', 0)
+    dfs(level + 1, vowel_cnt, password)
+
+vowels = {'a', 'e', 'i', 'o', 'u'}
+L, C = map(int, input().split())
+string = list(input().split())
+string.sort()
+dfs(0, 0, '')
