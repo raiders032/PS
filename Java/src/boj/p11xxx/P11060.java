@@ -17,6 +17,7 @@ public class P11060 {
     static int[] dp;
 
     public static void main(String[] args) {
+
         Scanner scanner = new Scanner(System.in);
         n = scanner.nextInt();
         array = new int[n];
