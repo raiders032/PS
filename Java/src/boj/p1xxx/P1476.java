@@ -3,7 +3,7 @@ https://www.acmicpc.net/problem/1476
 1476.날짜 계산
 실버5
 구현,수학,중국인의나머지정리
-풀이1.128ms
+풀이2.128ms
  */
 package boj.p1xxx;
 
@@ -23,16 +23,15 @@ public class P1476 {
         E = Integer.parseInt(st.nextToken()) - 1;
         S = Integer.parseInt(st.nextToken()) - 1;
         M = Integer.parseInt(st.nextToken()) - 1;
-        e = s = m = 0;
-        year = 1;
+        year = s = m = E;
 
-        while (e != E || s != S || m != M ){
-            e = (e + 1) % 15;
-            s = (s + 1) % 28;
-            m = (m + 1) % 19;
-            year += 1;
+
+        while (s != S || m != M ){
+            s = (s + 15) % 28;
+            m = (m + 15) % 19;
+            year += 15;
         }
 
-        System.out.println(year);
+        System.out.println(year + 1);
     }
 }
