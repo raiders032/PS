@@ -7,10 +7,7 @@ BFS,그래프이론,그래프탐색,구현,시뮬레이션
 */
 package boj.p16xxx;
 
-import java.util.ArrayList;
-import java.util.LinkedList;
-import java.util.Queue;
-import java.util.Scanner;
+import java.util.*;
 
 
 public class P16234 {
@@ -74,6 +71,25 @@ public class P16234 {
 
 
     public static void main(String[] args) {
+        String[] participant = {"leo"};
+        Map<String, Integer> map = new HashMap<>();
+
+
+        for (String name : participant){
+            if ( map.containsKey(name)){
+                map.replace(name, map.get(name) + 1);
+            }
+            else{
+                map.put(name, 1);
+            }
+        }
+        map.keySet().toString();
+
+
+
+
+
+
         Scanner scanner = new Scanner(System.in);
         n = scanner.nextInt();
         l = scanner.nextInt();
