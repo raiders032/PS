@@ -1,23 +1,31 @@
-"""
-LeetCode
-42. Trapping Rain Water
-Approach 4: Using 2 pointers
-"""
 class Solution:
     def trap(self, height: List[int]) -> int:
-        if not height:
-            return 0
-        volume = 0
-        left, right = 0, len(height) - 1
-        left_max, right_max = 0, 0
+        answer = 0
+        max_height = 0
+        max_height_index = 0
+        max_left_height = 0
+        max_right_height = 0
 
-        while left != right:
-            left_max = max(left_max, height[left])
-            right_max = max(right_max, height[right])
-            if left_max <= right_max:
-                volume += left_max - height[left]
-                left += 1
+        for index, value in enumerate(height):
+            if value > max_height:
+                max_height = value
+                max_height_index = index
+
+        left = 0
+        right = len(height) - 1
+
+        while left < max_height_index:
+            if height[left] < max_left_height:
+                answer += max_left_height - height[left]
             else:
-                volume += right_max - height[right]
-                right -= 1
-        return volume
+                max_left_height = height[left]
+            left += 1
+
+        while max_height_index < right:
+            if height[right] < max_right_height:
+                answer += max_right_height - height[right]
+            else:
+                max_right_height = height[right]
+            right -= 1
+
+        return answer
