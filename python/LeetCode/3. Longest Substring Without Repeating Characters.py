@@ -3,19 +3,18 @@ https://leetcode.com/problems/longest-substring-without-repeating-characters/
 3.Longest Substring Without Repeating Characters
 Medium
 해시
-풀이1.268 ms
+풀이2.52ms
 """
 class Solution:
     def lengthOfLongestSubstring(self, s: str) -> int:
-        length = len(s)
+        char_index = dict()
         answer = 0
-        left, right = 0, 0
-        while right != length:
-            string_length = right - left + 1
-            unique_count = len(set(s[left:right+1]))
-            if string_length != unique_count:
-                    left += 1
+        start_index = 0
+        for index, char in enumerate(s):
+            if char in char_index and start_index <= char_index[char]:
+                start_index = char_index[char] + 1
             else:
-                answer = max(answer, string_length)
-                right += 1
+                answer = max(answer, index - start_index + 1)
+
+            char_index[char] = index
         return answer
