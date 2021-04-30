@@ -1,22 +1,41 @@
-nums = [-2, 0, 0, 2, 2]
-nums.sort()
-res = []
-for i in range(len(nums)-2):
-    if i > 0 and nums[i] == nums[i-1]:
-        continue
-    l, r = i+1, len(nums)-1
-    while l < r:
-        sum = nums[i] + nums[l] + nums[r]
-        if sum > 0:
-            r -= 1
-        elif sum < 0:
-            l += 1
-        else:
-            res.append([nums[i], nums[l], nums[r]])
-            l += 1
-            r -= 1
-        while l < r and nums[l-1] == nums[l]:
-            l += 1
-        while l < r and nums[r+1] == nums[r]:
-            r -= 1
-print(res)
+"""
+https://leetcode.com/problems/3sum/submissions/
+15. 3Sum
+투포인터
+Medium
+풀이2.848ms
+"""
+
+
+class Solution:
+    def threeSum(self, nums: List[int]) -> List[List[int]]:
+        answer = []
+        nums.sort()
+
+        for i in range(len(nums) - 2):
+            if i > 0 and nums[i - 1] == nums[i]:
+                continue
+
+            left, right = i + 1, len(nums) - 1
+
+            while left < right:
+                total_sum = nums[i] + nums[left] + nums[right]
+
+                if total_sum < 0:
+                    left += 1
+
+                elif total_sum > 0:
+                    right -= 1
+
+                else:
+                    answer.append([nums[i], nums[left], nums[right]])
+
+                    while left < right and nums[left] == nums[left + 1]:
+                        left += 1
+
+                    while left < right and nums[right] == nums[right - 1]:
+                        right -= 1
+
+                    left += 1
+                    right -= 1
+        return answer
