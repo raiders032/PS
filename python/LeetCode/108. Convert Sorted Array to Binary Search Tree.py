@@ -3,7 +3,7 @@ https://leetcode.com/problems/convert-sorted-array-to-binary-search-tree/
 108. Convert Sorted Array to Binary Search Tree
 Easy
 BST
-풀이1.60ms
+풀이2.56ms
 """
 
 
@@ -16,15 +16,15 @@ class TreeNode:
 
 class Solution:
     def sortedArrayToBST(self, nums: List[int]) -> TreeNode:
-        def to_BST(left, right):
-            if left > right:
+        def to_BST(nums):
+            if not nums:
                 return None
-            mid = (left + right) // 2
+            mid = len(nums) // 2
 
             root = TreeNode(nums[mid])
-            root.left = to_BST(left, mid - 1)
-            root.right = to_BST(mid + 1, right)
+            root.left = to_BST(nums[:mid])
+            root.right = to_BST(nums[mid + 1:])
 
             return root
 
-        return to_BST(0, len(nums) - 1)
+        return to_BST(nums)
