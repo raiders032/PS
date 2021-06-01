@@ -1,17 +1,13 @@
-nums = [6, 2, 6, 5, 1, 2]
-nums.sort()
-res = 0
-for i in range(0, len(nums), 2):
-    res += nums[i]
-print(res)
-
 """
+https://leetcode.com/problems/array-partition-i/submissions/
 561. Array Partition I
+Easy
+정렬
+"""
 class Solution:
     def arrayPairSum(self, nums: List[int]) -> int:
+        answer = 0
         nums.sort()
-        res = 0
         for i in range(0, len(nums), 2):
-            res += nums[i]
-        return res
-"""
+            answer += nums[i]
+        return answer
