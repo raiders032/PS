@@ -1,31 +1,67 @@
-class Solution:
-    def trap(self, height: List[int]) -> int:
-        answer = 0
-        max_height = 0
-        max_height_index = 0
-        max_left_height = 0
-        max_right_height = 0
+"""
+https://leetcode.com/problems/trapping-rain-water/
+42.Trapping Rain Water
+Hard
+풀이1.56ms
+"""
+heights = [0, 1, 0, 2, 1, 0, 1, 3, 2, 1, 2, 1]
 
-        for index, value in enumerate(height):
-            if value > max_height:
-                max_height = value
-                max_height_index = index
 
-        left = 0
-        right = len(height) - 1
+def solution(heights):
+    if not heights:
+        return 0
 
-        while left < max_height_index:
-            if height[left] < max_left_height:
-                answer += max_left_height - height[left]
+    answer = 0
+    max_height = max(heights)
+    left = 0
+    left_max_height = 0
+    right = len(heights) - 1
+    right_max_height = 0
+
+    while left < right:
+        if left_max_height <= right_max_height < max_height:
+            if heights[right] <= right_max_height:
+                answer += right_max_height - heights[right]
             else:
-                max_left_height = height[left]
+                right_max_height = heights[right]
+            right = right - 1 if right_max_height != max_height else right
+        else:
+            if heights[left] <= left_max_height:
+                answer += left_max_height - heights[left]
+            else:
+                left_max_height = heights[left]
             left += 1
 
-        while max_height_index < right:
-            if height[right] < max_right_height:
-                answer += max_right_height - height[right]
+    return answer
+
+
+print(solution(heights))
+
+"""
+class Solution:
+    def trap(self, heights: List[int]) -> int:
+        if not heights:
+            return 0
+        answer = 0
+        max_height = max(heights)
+        left = 0
+        left_max_height = 0
+        right = len(heights) - 1
+        right_max_height = 0
+
+        while left < right:
+            if left_max_height <= right_max_height < max_height:
+                if heights[right] <= right_max_height:
+                    answer += right_max_height - heights[right]
+                else:
+                    right_max_height = heights[right]
+                right = right - 1 if right_max_height != max_height else right
             else:
-                max_right_height = height[right]
-            right -= 1
+                if heights[left] <= left_max_height:
+                    answer += left_max_height - heights[left]
+                else:
+                    left_max_height = heights[left]
+                left += 1
 
         return answer
+"""
