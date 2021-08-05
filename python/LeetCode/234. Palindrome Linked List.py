@@ -1,6 +1,9 @@
 """
-234. Palindrome Linked List
-덱 변환 풀이
+https://leetcode.com/problems/palindrome-linked-list/
+234.Palindrome Linked List
+Easy
+리스트
+풀이2.804ms
 """
 
 # Definition for singly-linked list.
@@ -8,18 +11,16 @@
 #     def __init__(self, val=0, next=None):
 #         self.val = val
 #         self.next = next
-from collections import deque
 class Solution:
     def isPalindrome(self, head: ListNode) -> bool:
-        q = deque()
-        if not head:
-            return True
+        list = []
 
-        while head is not None:
-            q.append(head.val)
+        while head:
+            list.append(head.val)
             head = head.next
 
-        while len(q)>1:
-            if q.popleft() != q.pop():
+        for i in range(len(list) // 2):
+            if list[i] != list[len(list) - i - 1]:
                 return False
+
         return True
