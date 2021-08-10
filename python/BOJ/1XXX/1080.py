@@ -2,7 +2,7 @@
 https://www.acmicpc.net/problem/1080
 1080.행렬
 실버2
-풀이1.376ms
+풀이2.348ms
 """
 import sys
 
@@ -10,24 +10,21 @@ import sys
 def operate(x, y):
     for i in range(x, x + 3):
         for j in range(y, y + 3):
-            if mat1[i][j] == '1':
-                mat1[i][j] = '0'
-            else:
-                mat1[i][j] = '1'
+            board[i][j] = '1' if board[i][j] == '0' else '0'
 
 
 def is_same():
     for i in range(N):
         for j in range(M):
-            if mat1[i][j] != mat2[i][j]:
+            if board[i][j] != target[i][j]:
                 return False
     return True
 
 
 input = sys.stdin.readline
 N, M = map(int, input().split())
-mat1 = [list(input().rstrip()) for _ in range(N)]
-mat2 = [list(input().rstrip()) for _ in range(N)]
+board = [list(input().rstrip()) for _ in range(N)]
+target = [list(input().rstrip()) for _ in range(N)]
 count = 0
 
 if is_same():
@@ -36,12 +33,12 @@ if is_same():
 
 for i in range(N - 2):
     for j in range(M - 2):
-        if mat1[i][j] == mat2[i][j]:
+        if board[i][j] == target[i][j]:
             continue
+
         count += 1
         operate(i, j)
         if is_same():
             print(count)
             exit()
 print(-1)
-
