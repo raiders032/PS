@@ -3,33 +3,31 @@ https://www.acmicpc.net/problem/2581
 2581.소수
 실버5
 수학
-풀이1.72ms
+풀이2
 """
 from math import sqrt
+import sys
 
-M = int(input())
 N = int(input())
-is_prime = [False] * 2 + [True] * (N - 1)
+M = int(input())
+is_prime = [True] * (M + 1)
 
-for i in range(2, int(sqrt(N)) + 1):
+for i in range(2, int(sqrt(M + 1)) + 1):
     if not is_prime[i]:
         continue
-    for j in range(i * i, N + 1, i):
+
+    for j in range(2 * i, M + 1, i):
         is_prime[j] = False
 
-total = 0
-min_prime = 0
+sum = 0
+min_prime = 987654321
+for i in range(N, M + 1):
+    if is_prime[i]:
+        sum += i
+        min_prime = min(min_prime, i)
 
-for i in range(M, N + 1):
-    if not is_prime[i]:
-        continue
-    if min_prime == 0:
-        min_prime = i
-    total += i
-
-if total == 0:
-    print(-1)
-else:
-    print(total)
+if min_prime != 987654321:
+    print(sum)
     print(min_prime)
-
+else:
+    print(-1)
