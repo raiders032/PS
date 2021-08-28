@@ -1,16 +1,22 @@
 """
-1463. 1로 만들기
+https://www.acmicpc.net/problem/1463
+1463.1로 만들기
 실버3
-다이나믹프로그래밍
+풀이2.1060ms
 """
-n = int(input())
-dp = [1] * (n+1)
+N = int(input())
+dp = [1234567899] * (N + 1)
 dp[1] = 0
-for i in range(4, n+1):
-    dp[i] = dp[i-1]
-    if i % 2 == 0:
-        dp[i] = min(dp[i], dp[i//2])
-    if i % 3 == 0:
-        dp[i] = min(dp[i], dp[i//3])
-    dp[i] += 1
-print(dp[n])
+
+for i in range(1, N + 1):
+    if i + 1 > N:
+        continue
+    dp[i + 1] = min(dp[i + 1], dp[i] + 1)
+    if 2 * i > N:
+        continue
+    dp[2 * i] = min(dp[2 * i], dp[i] + 1)
+    if 3 * i > N:
+        continue
+    dp[3 * i] = min(dp[3 * i], dp[i] + 1)
+
+print(dp[N])
