@@ -2,18 +2,23 @@
 https://www.acmicpc.net/problem/11286
 11286.절댓값 힙
 실버1
-풀이1.188ms
+풀이2.296ms
 """
-import sys, heapq
+import sys
+import heapq
 
 input = sys.stdin.readline
 min_heap = []
-for _ in range(int(input())):
-    x = int(input())
-    if x == 0:
-        if len(min_heap):
-            print(heapq.heappop(min_heap)[1])
-        else:
-            print(0)
+N = int(input())
+for _ in range(N):
+    num = int(input())
+
+    if num != 0:
+        heapq.heappush(min_heap, (abs(num), num))
         continue
-    heapq.heappush(min_heap, (abs(x), x))
+
+    if min_heap:
+        print(heapq.heappop(min_heap)[1])
+    else:
+        print(0)
+
