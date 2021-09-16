@@ -4,7 +4,7 @@ package boj.p90xx;
 https://www.acmicpc.net/problem/9012
 9012.괄호
 실버4
-풀이1.144ms
+풀이2.128ms
  */
 
 import java.io.BufferedReader;
@@ -17,24 +17,26 @@ public class P9012 {
         int n = Integer.parseInt(br.readLine());
 
         for (int i = 0; i < n; i++) {
-            char[] ps = br.readLine().toCharArray();
             int count = 0;
+            String ps = br.readLine();
 
-            for (char p : ps) {
-                if (p == '(')
+            for (char ch : ps.toCharArray()) {
+                if (ch == '(') {
                     count += 1;
-
-                else if (count < 1) {
-                    count = 1;
-                    break;
-                } else
+                } else {
+                    if (count == 0) {
+                        count = 1;
+                        break;
+                    }
                     count -= 1;
+                }
             }
 
-            if (count > 0)
+            if (count > 0) {
                 System.out.println("NO");
-            else
+            } else {
                 System.out.println("YES");
+            }
         }
     }
 }
