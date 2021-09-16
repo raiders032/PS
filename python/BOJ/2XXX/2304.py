@@ -2,44 +2,33 @@
 https://www.acmicpc.net/problem/2304
 2304.창고 다각형
 실버2
-풀이1.68ms
+풀이2.72ms
 """
 import sys
 
 input = sys.stdin.readline
 N = int(input())
+pillars = [tuple(map(int, input().split())) for _ in range(N)]
+pillars.sort()
 
-arr = list()
-max_height =0
-middle = 0
-
+max_height = 0
+max_index = 0
 for i in range(N):
-    x, y = map(int, input().split())
-    arr.append((x, y))
-arr.sort(key=lambda l: l[0])
+    if max_height < pillars[i][1]:
+        max_height = pillars[i][1]
+        max_index = i
 
-for i in range(N):
-    if max_height < arr[i][1]:
-        max_height = arr[i][1]
-        middle = i
+answer = max_height
+left = [pillars[0]]
+for i in range(1, max_index + 1):
+    if left[-1][1] <= pillars[i][1]:
+        answer += left[-1][1] * (pillars[i][0] - left[-1][0])
+        left.append(pillars[i])
 
-ans = max_height
-stack = []
-for i in range(middle + 1):
-    if not stack:
-        stack.append((arr[i][0], arr[i][1]))
-    else:
-        if stack[-1][1] <= arr[i][1]:
-            ans += (arr[i][0] - stack[-1][0]) * stack[-1][1]
-            stack.append((arr[i][0], arr[i][1]))
+right = [pillars[N - 1]]
+for i in range(N - 2, max_index - 1, -1):
+    if right[-1][1] <= pillars[i][1]:
+        answer += right[-1][1] * (right[-1][0] - pillars[i][0])
+        right.append(pillars[i])
 
-stack = []
-for i in range(N - 1, middle - 1, -1):
-    if not stack:
-        stack.append((arr[i][0], arr[i][1]))
-    else:
-        if stack[-1][1] <= arr[i][1]:
-            ans += (stack[-1][0] - arr[i][0]) * stack[-1][1]
-            stack.append((arr[i][0], arr[i][1]))
-
-print(ans)
+print(answer)
