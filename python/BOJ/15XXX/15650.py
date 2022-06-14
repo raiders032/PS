@@ -1,22 +1,22 @@
 """
-15650번 N과 M (2) 실버3
-백트래킹
+https://www.acmicpc.net/problem/15650
+15650번 N과 M (2)
+실버3
+풀이1.72ms
 """
+
+
+def solve(index):
+    if len(selected) == M:
+        print(' '.join(map(str, selected)))
+        return
+
+    for i in range(index + 1, N + 1):
+        selected.append(i)
+        solve(i)
+        selected.pop()
+
+
 N, M = map(int, input().split())
 selected = []
-
-
-def dfs(level, idx):
-    if level == M:
-        for x in selected:
-            print(x, end=' ')
-        print()
-        return
-    else:
-        for i in range(idx, N):
-            selected.append(i+1)
-            dfs(level+1, i+1)
-            selected.pop()
-
-
-dfs(0, 0)
+solve(0)
