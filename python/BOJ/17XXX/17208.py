@@ -2,34 +2,22 @@
 https://www.acmicpc.net/problem/17208
 17208.카우버거 알바생
 골드4
-풀이1.시간초과
+풀이2.556ms(pypy3)
 """
 import sys
+
 input = sys.stdin.readline
 
-
-def solve(level):
-    global answer, M, K
-    answer = max(answer, len(selected))
-
-    if level == N:
-        return
-
-    if orders[level][0] <= M and orders[level][1] <= K:
-        selected.append(level)
-        M -= orders[level][0]
-        K -= orders[level][1]
-        solve(level + 1)
-        selected.pop()
-        M += orders[level][0]
-        K += orders[level][1]
-
-    solve(level + 1)
-
-
 N, M, K = map(int, input().split())
-orders = [tuple(map(int, input().split())) for _ in range(N)]
-selected = []
-answer = 0
-solve(0)
-print(answer)
+orders = [0] + [tuple(map(int, input().split())) for _ in range(N)]
+dp = [[[0] * (K + 1) for _ in range(M + 1)] for _ in range(N + 1)]
+
+for i in range(1, N + 1):
+    for j in range(1, M + 1):
+        for k in range(1, K + 1):
+            dp[i][j][k] = dp[i - 1][j][k]
+            if j - orders[i][0] < 0 or k - orders[i][1] < 0:
+                continue
+            dp[i][j][k] = max(dp[i][j][k], dp[i - 1][j - orders[i][0]][k - orders[i][1]] + 1)
+
+print(dp[N][M][K])
