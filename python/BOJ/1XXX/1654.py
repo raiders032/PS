@@ -5,24 +5,26 @@ https://www.acmicpc.net/problem/1654
 풀이2.116ms
 """
 import sys
-
 input = sys.stdin.readline
+
 K, N = map(int, input().split())
-nums = [int(input()) for _ in range(K)]
+lines = [int(input()) for _ in range(K)]
+lines.sort()
 left = 1
-right = 2 ** 31 - 1
-ans = 0
+right = lines[-1]
+
+max_count = 0
+answer = 0
 
 while left <= right:
-    count = 0
     mid = (left + right) // 2
-    for num in nums:
-        count += num // mid
-
-    if count >= N:
-        left = mid + 1
-        ans = max(ans, mid)
-    else:
+    count = 0
+    for line in lines:
+        count += line // mid
+    if count < N:
         right = mid - 1
+    else:
+        left = mid + 1
+        answer = mid
 
-print(ans)
+print(answer)
