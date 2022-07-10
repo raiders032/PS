@@ -2,9 +2,10 @@
 https://www.acmicpc.net/problem/1520
 1520.내리막 길
 골드4
-풀이2.216ms
+풀이3.204ms
 """
 import sys
+
 sys.setrecursionlimit(10 ** 6)
 
 
