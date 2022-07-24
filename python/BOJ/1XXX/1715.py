@@ -7,6 +7,7 @@ https://www.acmicpc.net/problem/1715
 import sys, heapq
 
 input = sys.stdin.readline
+
 N = int(input())
 cards = []
 ans = 0
