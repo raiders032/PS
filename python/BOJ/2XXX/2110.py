@@ -1,36 +1,33 @@
 """
 https://www.acmicpc.net/problem/2110
 2110.공유기 설치
-실버1
-풀이1.896ms
+풀이2.500ms
 """
 import sys
 
 input = sys.stdin.readline
 N, C = map(int, input().split())
-nums = [int(input()) for _ in range(N)]
-nums.sort()
-left = 1
-right = nums[-1]
-ans = 0
+homes = [int(input()) for _ in range(N)]
+homes.sort()
+
+left = 0
+right = 2000000000
+answer = 0
 
 while left <= right:
     mid = (left + right) // 2
-    count = 1
-    start = 0
-    end = 1
-    while end < N:
-        if nums[end] - nums[start] < mid:
-            end += 1
-            continue
-        start = end
-        end += 1
-        count += 1
 
-    if count < C:
-        right = mid - 1
-    else:
+    is_possible = True
+    for i in range(N - 1):
+        if homes[i + 1] - homes[i] < mid:
+            is_possible = False
+            break
+
+    if is_possible:
         left = mid + 1
-        ans = mid
+        answer = mid
+    else:
+        right = mid - 1
+print(answer)
 
-print(ans)
+
