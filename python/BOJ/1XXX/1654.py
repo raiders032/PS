@@ -1,8 +1,7 @@
 """
 https://www.acmicpc.net/problem/1654
 1654.랜선 자르기
-실버3
-풀이2.116ms
+풀이3.120ms
 """
 import sys
 input = sys.stdin.readline
