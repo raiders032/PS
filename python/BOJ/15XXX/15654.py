@@ -1,30 +1,29 @@
 """
 https://www.acmicpc.net/problem/15654
 15654.N과 M (5)
-실버3
-풀이1.204ms
+풀이2.244ms
 """
 import sys
 input = sys.stdin.readline
+n, m = map(int, input().split())
+visited_index = [False] * n
+numbers = sorted(list(map(int, input().split())))
+selected = []
 
 
-def solve():
-    if len(selected) == M:
-        print(' '.join(map(str, selected)))
+def select(level):
+    if level == m:
+        print(*selected)
         return
 
-    for i in range(1, N + 1):
-        if visited[i]:
+    for i in range(n):
+        if visited_index[i]:
             continue
-        selected.append(numbers[i - 1])
-        visited[i] = True
-        solve()
+        visited_index[i] = True
+        selected.append(numbers[i])
+        select(level + 1)
         selected.pop()
-        visited[i] = False
+        visited_index[i] = False
 
 
-N, M = map(int, input().split())
-numbers = sorted(list(map(int, input().split())))
-visited = [False] * (N + 1)
-selected = []
-solve()
+select(0)
