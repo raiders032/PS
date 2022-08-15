@@ -4,26 +4,26 @@ https://www.acmicpc.net/problem/1654
 풀이3.120ms
 """
 import sys
+
 input = sys.stdin.readline
 
+
+def decision_problem(length):
+    wire_count = 0
+    for w in wire:
+        wire_count += w // length
+    return wire_count >= N
+
+
 K, N = map(int, input().split())
-lines = [int(input()) for _ in range(K)]
-lines.sort()
-left = 1
-right = lines[-1]
+wire = [int(input()) for _ in range(K)]
 
-max_count = 0
-answer = 0
-
-while left <= right:
-    mid = (left + right) // 2
-    count = 0
-    for line in lines:
-        count += line // mid
-    if count < N:
-        right = mid - 1
+low = 0
+high = 2 ** 31
+while low + 1 < high:
+    mid = (low + high) // 2
+    if decision_problem(mid) == decision_problem(high):
+        high = mid
     else:
-        left = mid + 1
-        answer = mid
-
-print(answer)
+        low = mid
+print(low)
