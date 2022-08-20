@@ -2,7 +2,6 @@
 https://www.acmicpc.net/problem/9663
 9663.N-Queen
 골드5
-풀이2.5612ms(PyPy3)
 """
 
 
