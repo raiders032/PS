@@ -9,7 +9,6 @@ https://www.acmicpc.net/problem/9663
 def solve(row):
     global answer
     if row == N:
-        answer += 1
         return
 
     for col in range(N):
