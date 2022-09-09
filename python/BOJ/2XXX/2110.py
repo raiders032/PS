@@ -4,30 +4,37 @@ https://www.acmicpc.net/problem/2110
 풀이2.500ms
 """
 import sys
-
 input = sys.stdin.readline
+
+
+def check(distance):
+    route_count = 1
+    current_route = routes[0]
+    for i in range(1, N):
+        if routes[i] - current_route >= distance:
+            route_count += 1
+            current_route = routes[i]
+    return route_count >= C
+
+
 N, C = map(int, input().split())
-homes = [int(input()) for _ in range(N)]
-homes.sort()
+routes = sorted([int(input()) for _ in range(N)])
 
-left = 0
-right = 2000000000
-answer = 0
+low = 0
+high = 1000000001
+while low + 1 < high:
+    mid = (low + high) // 2
 
-while left <= right:
-    mid = (left + right) // 2
+    route_count = 1
+    current_route = routes[0]
+    for i in range(1, N):
+        if routes[i] - current_route >= mid:
+            route_count += 1
+            current_route = routes[i]
 
-    is_possible = True
-    for i in range(N - 1):
-        if homes[i + 1] - homes[i] < mid:
-            is_possible = False
-            break
-
-    if is_possible:
-        left = mid + 1
-        answer = mid
+    if check(mid):
+        low = mid
     else:
-        right = mid - 1
-print(answer)
+        high = mid
 
-
+print(low)
