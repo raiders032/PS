@@ -1,11 +1,11 @@
-package boj.p11xxx;
+package boj.p11000;
 
-/*
-https://www.acmicpc.net/problem/11286
-11286.절댓값 힙
-실버1
-풀이1.660ms
+/**
+ * https://www.acmicpc.net/problem/11286
+ * 11286.절댓값 힙
+ * 풀이1.660ms
  */
+
 
 import java.io.BufferedReader;
 import java.io.IOException;
