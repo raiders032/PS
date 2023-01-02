@@ -1,4 +1,4 @@
-package `1000`
+package boj.`1000`
 
 import java.io.BufferedReader
 import java.io.InputStreamReader
