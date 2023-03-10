@@ -1,28 +1,28 @@
 """
 https://www.acmicpc.net/problem/14225
 14225.부분수열의 합
-실버1
-브루트포스
-풀이1.628ms
+풀이2.680ms
 """
 import sys
 
 
-def bfs(lv, sum):
-    if lv == N:
-        check.add(sum)
+def dfs(level, sum):
+    if level == len(array):
+        sum_set.add(sum)
         return
-    bfs(lv + 1, sum + arr[lv])
-    bfs(lv + 1, sum)
+    dfs(level + 1, sum + array[level])
+    dfs(level + 1, sum)
 
 
+sum_set = set()
 input = sys.stdin.readline
 N = int(input())
-arr = list(map(int, input().split()))
-check = set()
-
-bfs(0, 0)
-for i in range(1, len(check) + 1):
-    if i not in check:
-        print(i)
+array = list(map(int, input().split()))
+dfs(0, 0)
+sheep_count = 1
+while True:
+    if sheep_count not in sum_set:
+        print(sheep_count)
         break
+    sheep_count += 1
+
