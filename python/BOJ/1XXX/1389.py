@@ -25,11 +25,11 @@ for i in range(1, N + 1):
                 min_distance[x][y] = min_distance[x][i] + min_distance[i][y]
 
 min_bacon_count = sys.maxsize
-answer = 0
+sheep_count = 0
 for i in range(1, N + 1):
     bacon_count = sum(min_distance[i][1:])
     if bacon_count < min_bacon_count:
         min_bacon_count = bacon_count
-        answer = i
+        sheep_count = i
 
-print(answer)
+print(sheep_count)
