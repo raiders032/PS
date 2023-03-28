@@ -1,35 +1,40 @@
 """
 https://www.acmicpc.net/problem/1389
 1389.케빈 베이컨의 6단계 법칙
-풀이1.96ms
+풀이2.64ms
 """
+from collections import deque
 import sys
 
 input = sys.stdin.readline
 
-N, M = map(int, input().split())
-min_distance = [[sys.maxsize] * (N + 1) for _ in range(N + 1)]
-
-for _ in range(M):
+n, m = map(int, input().split())
+graph = [list() for _ in range(n + 1)]
+for _ in range(m):
     v1, v2 = map(int, input().split())
-    min_distance[v1][v2] = 1
-    min_distance[v2][v1] = 1
+    graph[v1].append(v2)
+    graph[v2].append(v1)
 
-for i in range(1, N + 1):
-    min_distance[i][i] = 0
+answer = sys.maxsize
+min_beacon = sys.maxsize
 
-for i in range(1, N + 1):
-    for x in range(1, N + 1):
-        for y in range(1, N + 1):
-            if min_distance[x][i] + min_distance[i][y] < min_distance[x][y]:
-                min_distance[x][y] = min_distance[x][i] + min_distance[i][y]
+for i in range(1, n + 1):
+    visited = [False] * (n + 1)
+    visited[i] = True
+    queue = deque([(i, 0)])
+    beacon = 0
 
-min_bacon_count = sys.maxsize
-sheep_count = 0
-for i in range(1, N + 1):
-    bacon_count = sum(min_distance[i][1:])
-    if bacon_count < min_bacon_count:
-        min_bacon_count = bacon_count
-        sheep_count = i
+    while queue:
+        vertex, distance = queue.popleft()
+        beacon += distance
+        for next_vertex in graph[vertex]:
+            if visited[next_vertex]:
+                continue
+            visited[next_vertex] = True
+            queue.append((next_vertex, distance + 1))
 
-print(sheep_count)
+    if beacon < min_beacon:
+        min_beacon = beacon
+        answer = i
+
+print(answer)
