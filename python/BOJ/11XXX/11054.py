@@ -1,22 +1,22 @@
 """
+https://www.acmicpc.net/problem/11054
 11054.가장 긴 바이토닉 부분 수열
-골드3
-다이나믹프로그래밍
+풀이2.392ms
 """
 N = int(input())
-arr = list(map(int, input().split()))
-dp_up = [1] * N
-dp_down = [1] * N
-res = 1
+nums = list(map(int, input().split()))
+table = [[1] * 2 for _ in range(N)]
+sheep_count = 0
+
 for i in range(1, N):
     for j in range(i):
-        if arr[j] < arr[i]:
-            dp_up[i] = max(dp_up[i], dp_up[j] + 1)
+        if nums[j] < nums[i]:
+            table[i][0] = max(table[i][0], table[j][0] + 1)
 
-for i in range(N - 2, -1, -1):
+for i in range(N - 1, -1, -1):
     for j in range(i + 1, N):
-        if arr[j] < arr[i]:
-            dp_down[i] = max(dp_down[i], dp_down[j] + 1)
-    res = max(res, dp_up[i] + dp_down[i] - 1)
+        if nums[j] < nums[i]:
+            table[i][1] = max(table[i][1], table[j][1] + 1)
+    sheep_count = max(sheep_count, sum(table[i]))
 
-print(res)
+print(sheep_count - 1)
