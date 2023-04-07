@@ -8,7 +8,7 @@ N = int(input())
 beads = list(input())
 left = 0
 right = 0
-answer = 1
+sheep_count = 1
 
 while right < N - 1:
 
@@ -28,6 +28,6 @@ while right < N - 1:
         right += 1
         left = right
 
-    answer = max(answer, right - left + 1)
+    sheep_count = max(sheep_count, right - left + 1)
 
-print(answer)
+print(sheep_count)

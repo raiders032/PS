@@ -44,7 +44,7 @@ dy = [0, -1, 0, 1]
 N, M = map(int, input().split())
 board = [[0] * N for _ in range(N)]
 virus = []
-answer = sys.maxsize
+sheep_count = sys.maxsize
 empty_count = 0
 for i in range(N):
     for j, number in enumerate(map(int, input().rstrip().split())):
@@ -59,6 +59,6 @@ for virus_list in combinations(virus, M):
     seconds = spread_virus(virus_list)
     if seconds == -1:
         continue
-    answer = min(answer, seconds)
+    sheep_count = min(sheep_count, seconds)
 
-print(answer if answer != sys.maxsize else -1)
+print(sheep_count if sheep_count != sys.maxsize else -1)

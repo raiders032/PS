@@ -2,19 +2,20 @@
 https://www.acmicpc.net/problem/3273
 3273.두 수의 합
 실버3
-풀이1.112ms
+풀이2
 """
 N = int(input())
 nums = list(map(int, input().split()))
-nums.sort()
 X = int(input())
-nums_set = set(nums)
-answer = 0
+nums.sort()
+num_set = set(nums)
+i = 0
+count = 0
 
-for i in range(N):
+while i < N:
     if nums[i] >= X / 2:
         break
-    if X - nums[i] in nums_set:
-        answer += 1
-
-print(answer)
+    if X - nums[i] in num_set:
+        count += 1
+    i += 1
+print(count)

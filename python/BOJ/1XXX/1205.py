@@ -2,47 +2,41 @@
 https://www.acmicpc.net/problem/1205
 1205.등수 구하기
 실버5
-풀이1.68ms
+풀이2.
 """
-N, point, P = map(int, input().split())
+N, score, P = map(int, input().split())
+ranks = [-1] + list(map(int, input().split()))
+
 if N == 0:
     print(1)
     exit()
-points = list(map(int, input().split()))
-left = 0
-right = N - 1
-idx = N
+
+left = 1
+right = N
+find_index = 0
 
 while left <= right:
     mid = (left + right) // 2
-    if point <= points[mid]:
+    if score <= ranks[mid]:
         left = mid + 1
+        find_index = mid
     else:
         right = mid - 1
-        idx = mid
 
-if 0 <= idx < N:
-    while idx > 0 and point == points[idx - 1]:
-        idx -= 1
-    print(idx + 1)
+if ranks[find_index] == score:
+    if find_index >= P:
+        print(-1)
+    else:
+        while find_index and ranks[find_index - 1] == score:
+            find_index -= 1
+        print(find_index)
 else:
-    if N < P:
-        while idx > 0 and point == points[idx - 1]:
-            idx -= 1
-        print(idx + 1)
+    if find_index < P:
+        print(find_index + 1)
     else:
         print(-1)
 
 """
-5 2 5
-6 5 4 3 1
-5
----
-9 5 10
-10 10 10 9 9 8 7 6 6
-10
----
-3 90 10
-100 100 90
-3
+10 1 10
+10 9 8 7 6 5 4 3 2 2
 """

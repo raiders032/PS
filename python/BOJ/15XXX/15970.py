@@ -14,12 +14,12 @@ for _ in range(n):
     position, color = map(int, input().split())
     color_point[color].append(position)
 
-answer = 0
+sheep_count = 0
 for points in color_point.values():
     points.sort()
     for position in range(len(points)):
         to_left_length = points[position] - points[position - 1] if position else sys.maxsize
         to_right_length = points[position + 1] - points[position] if position + 1 < len(points) else sys.maxsize
-        answer += min(to_left_length, to_right_length)
+        sheep_count += min(to_left_length, to_right_length)
 
-print(answer)
+print(sheep_count)

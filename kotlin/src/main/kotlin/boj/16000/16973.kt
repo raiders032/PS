@@ -7,8 +7,8 @@ import java.util.Queue
 import java.util.StringTokenizer
 
 /**
- * https://www.acmicpc.net/problem/16973
  * 16973.직사각형 탈출
+ * https://www.acmicpc.net/problem/16973
  * 풀이1.2988ms
  */
 fun main() {

@@ -2,7 +2,7 @@
 https://www.acmicpc.net/problem/2234
 2234.성곽
 골드4
-풀이1.100ms
+풀이1.96ms
 """
 import sys
 from collections import deque
@@ -45,7 +45,7 @@ for i in range(N):
             board[i][j][k] = value % 2
             value = value // 2
 
-answer = [0, 0, 0]
+sheep_count = [0, 0, 0]
 room_count = 0
 max_area = 0
 max_two_area = 0

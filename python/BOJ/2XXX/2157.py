@@ -2,37 +2,37 @@
 https://www.acmicpc.net/problem/2157
 2157.여행
 골드4
-풀이1.2084ms
+풀이2
 """
 import sys
-import collections
 input = sys.stdin.readline
 
 
-def solve():
-    q = collections.deque()
-    q.append((1, 1))
+def solve(vertex, level):
+    print(f'vertex:{vertex}, level:{level}')
+    if dp[vertex][level] != -1:
+        return dp[vertex][level]
+    if level == 0:
+        return 0
 
-    while q:
-        count, vertex = q.popleft()
-        if count == M:
-            continue
+    dp[vertex][level] = 0
+    for pre_vertex, weight in graph[vertex]:
+        dp[vertex][level] = max(dp[vertex][level], solve(pre_vertex, level - 1) + weight)
 
-        for next_vertex, weight in graph[vertex]:
-            if visited[vertex][count] + weight <= visited[next_vertex][count + 1]:
-                continue
-
-            visited[next_vertex][count + 1] = visited[vertex][count] + weight
-            q.append((count + 1, next_vertex))
+    return dp[vertex][level]
 
 
-N, M, K = map(int, input().rstrip().split())
-graph = collections.defaultdict(list)
-visited = [[0] * 301 for _ in range(N + 1)]
+N, M, K = map(int, input().split())
+graph = [list() for _ in range(N + 1)]
+dp = [[-1] * (M + 1) for _ in range(N + 1)]
+
 for _ in range(K):
-    v1, v2, w = map(int, input().rstrip().split())
+    v1, v2, w = map(int, input().split())
     if v1 > v2:
         continue
-    graph[v1].append((v2, w))
-solve()
-print(max(visited[N]))
+    dp[v2][1] = max(dp[v2][1], w)
+    graph[v2].append((v1, w))
+
+
+print(solve(N, M))
+print(dp)

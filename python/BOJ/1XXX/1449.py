@@ -2,28 +2,23 @@
 https://www.acmicpc.net/problem/1449
 1449.수리공 항승
 실버3
-풀이1.80ms
+풀이2.80ms
 """
+import heapq
+
 N, L = map(int, input().split())
 positions = list(map(int, input().split()))
-positions.sort()
-count = 0
-end = 0
+heapq.heapify(positions)
+sheep_count = 0
+min_position = 0
+while positions:
+    cur = heapq.heappop(positions)
 
-for position in positions:
-    if position < end:
-        continue
+    if min_position <= cur:
+        min_position = cur + L
+        sheep_count += 1
 
-    end = position + L
-    count += 1
-print(count)
+print(sheep_count)
 
-"""
-2 1
-1 2
-2
----
-2 2
-1 2
-1
-"""
+
+

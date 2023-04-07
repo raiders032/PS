@@ -10,9 +10,9 @@ input = sys.stdin.readline
 N = int(input())
 prices = [int(input()) for _ in range(N)]
 prices.sort(reverse=True)
-answer = 0
+sheep_count = 0
 for i in range(len(prices)):
     if i % 3 == 2:
         continue
-    answer += prices[i]
-print(answer)
+    sheep_count += prices[i]
+print(sheep_count)

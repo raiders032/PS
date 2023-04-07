@@ -2,27 +2,25 @@
 https://www.acmicpc.net/problem/2240
 2240.자두나무
 실버1
-풀이1.112ms
+풀이2.116ms
 """
-import sys
+T, W = map(int, input().split())
+positions = [0] + [int(input()) - 1 for _ in range(T)]
+dp = [[[0] * (W + 1) for _ in range(2)] for _ in range(T + 1)]
+dp[1][0][0] = 1 if positions[1] == 0 else 0
+dp[1][1][1] = 1 if positions[1] == 1 else 0
 
-input = sys.stdin.readline
-N, C = map(int, input().split())
-nums = [int(input()) - 1 for _ in range(N)]
-dp = [[[0] * (C + 1) for _ in range(2)] for _ in range(N)]
+for i in range(2, T + 1):
+    for j in range(min(i + 1, W + 1)):
+        dp[i][0][j] = max(dp[i][0][j], dp[i - 1][0][j])
+        dp[i][1][j] = max(dp[i][1][j], dp[i - 1][1][j])
+        if j:
+            dp[i][0][j] = max(dp[i][0][j], dp[i - 1][1][j - 1])
+            dp[i][1][j] = max(dp[i][1][j], dp[i - 1][0][j - 1])
 
-dp[0][0][0] = 1 if nums[0] == 0 else 0
-dp[0][1][1] = 1 if nums[0] == 1 else 0
+        if positions[i] == 0:
+            dp[i][0][j] += 1
+        else:
+            dp[i][1][j] += 1
 
-for i in range(N - 1):
-    for count in range(C + 1):
-        dp[i + 1][0][count] = max(dp[i + 1][0][count], dp[i][0][count] + 1 if nums[i + 1] == 0 else dp[i][0][count])
-        dp[i + 1][1][count] = max(dp[i + 1][1][count], dp[i][1][count] + 1 if nums[i + 1] == 1 else dp[i][1][count])
-
-        if count + 1 > C:
-            continue
-
-        dp[i + 1][0][count + 1] = max(dp[i + 1][0][count + 1], dp[i][1][count] + 1 if nums[i + 1] == 0 else dp[i][1][count])
-        dp[i + 1][1][count + 1] = max(dp[i + 1][1][count + 1], dp[i][0][count] + 1 if nums[i + 1] == 1 else dp[i][0][count])
-
-print(max(max(dp[N-1][0]), max(dp[N-1][1])))
+print(max(max(dp[T][0]), max(dp[T][1])))

@@ -7,9 +7,9 @@ https://www.acmicpc.net/problem/11399
 N = int(input())
 times = list(map(int, input().split()))
 times.sort()
-answer = 0
+sheep_count = 0
 
 for index, time in enumerate(times):
-    answer += time * (len(times) - index)
+    sheep_count += time * (len(times) - index)
 
-print(answer)
+print(sheep_count)

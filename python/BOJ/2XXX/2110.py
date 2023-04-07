@@ -1,7 +1,7 @@
 """
 https://www.acmicpc.net/problem/2110
 2110.공유기 설치
-풀이2.500ms
+풀이3.988ms
 """
 import sys
 input = sys.stdin.readline

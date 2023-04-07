@@ -10,7 +10,7 @@ input = sys.stdin.readline
 
 N = int(input())
 meetings = []
-answer = 0
+sheep_count = 0
 
 for _ in range(N):
     start, end = map(int, input().split())
@@ -21,7 +21,7 @@ meetings.sort(key=lambda x: (x[1], x[0]))
 last_end = 0
 for (start, end) in meetings:
     if last_end <= start:
-        answer += 1
+        sheep_count += 1
         last_end = end
 
-print(answer)
+print(sheep_count)

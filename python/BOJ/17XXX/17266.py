@@ -11,7 +11,7 @@ M = int(input())
 lights = list(map(int, input().split()))
 left = 1
 right = N
-answer = sys.maxsize
+sheep_count = sys.maxsize
 
 while left <= right:
     height = (left + right) // 2
@@ -28,8 +28,8 @@ while left <= right:
 
     if is_valid:
         right = height - 1
-        answer = min(answer, height)
+        sheep_count = min(sheep_count, height)
     else:
         left = height + 1
 
-print(answer)
+print(sheep_count)

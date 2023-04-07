@@ -20,8 +20,8 @@ for i in range(N):
         if j - volume[i] >= 0:
             dp[i + 1][j - volume[i]] = True
 
-answer = -1
+sheep_count = -1
 for j in range(M + 1):
     if dp[N][j]:
-        answer = j
-print(answer)
+        sheep_count = j
+print(sheep_count)

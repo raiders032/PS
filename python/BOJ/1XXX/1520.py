@@ -5,7 +5,6 @@ https://www.acmicpc.net/problem/1520
 풀이4.220ms
 """
 import sys
-
 sys.setrecursionlimit(10 ** 6)
 input = sys.stdin.readline
 

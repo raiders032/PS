@@ -35,8 +35,8 @@ for _ in range(M):
 for i in range(1, N + 1):
     dijkstra(i)
 
-answer = 0
+sheep_count = 0
 for i in range(1, N + 1):
-    answer = max(answer, min_distances[i][X] + min_distances[X][i])
+    sheep_count = max(sheep_count, min_distances[i][X] + min_distances[X][i])
 
-print(answer)
+print(sheep_count)

@@ -35,7 +35,7 @@ for _ in range(int(input())):
     N, M = map(int, input().split())
     A = list(map(int, input().split()))
     B = sorted(list(map(int, input().split())))
-    answer = 0
+    sheep_count = 0
     for number in A:
-        answer += find(number)
-    print(answer)
+        sheep_count += find(number)
+    print(sheep_count)

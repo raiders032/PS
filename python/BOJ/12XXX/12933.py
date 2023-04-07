@@ -21,11 +21,11 @@ def solve():
             count[2] += 1
             if count[1] < count[2]:
                 return -1
-        elif char == 'c':
+        elif char == 'start_y':
             count[3] += 1
             if count[2] < count[3]:
                 return -1
-        elif char == 'k':
+        elif char == 'n':
             if not count[3]:
                 return -1
             for i in range(4):

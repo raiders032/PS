@@ -3,15 +3,19 @@ https://leetcode.com/problems/jewels-and-stones/
 771. Jewels and Stones
 Easy
 Hash
-풀이1.32ms
+풀이2.32ms
 """
 
 
 class Solution:
     def numJewelsInStones(self, jewels: str, stones: str) -> int:
-        jewels_set = set(jewels)
+        stone_count = collections.defaultdict(int)
         count = 0
+
         for stone in stones:
-            if stone in jewels_set:
-                count += 1
+            stone_count[stone] += 1
+
+        for jewel in jewels:
+            count += stone_count[jewel]
+
         return count

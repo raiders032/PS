@@ -2,31 +2,29 @@
 https://www.acmicpc.net/problem/2805
 2805.나무 자르기
 실버3
-풀이1.3728ms
+풀이2.500ms
 """
+import sys
+from collections import Counter
+
+input = sys.stdin.readline
 N, M = map(int, input().split())
-heights = list(map(int, input().split()))
+trees = Counter(map(int, input().split()))
+
 left = 0
-right = max(heights)
-ans = 0
-
-
-def is_possible(height):
-    total = 0
-    for h in heights:
-        total += h - height if h - height >= 0 else 0
-
-    if total >= M:
-        return True
-    else:
-        return False
-
-
+right = max(trees)
+sheep_count = 0
 while left <= right:
     mid = (left + right) // 2
-    if is_possible(mid):
+
+    total_length = 0
+    for tree, count in trees.items():
+        if mid < tree:
+            total_length += count * (tree - mid)
+
+    if total_length >= M:
         left = mid + 1
-        ans = mid
+        sheep_count = mid
     else:
         right = mid - 1
-print(ans)
+print(sheep_count)

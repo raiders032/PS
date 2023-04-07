@@ -1,30 +1,30 @@
 """
+https://www.acmicpc.net/problem/1697
 1697.숨바꼭질
-실버1
-BFS, 그래프이론, 그래프탐색
+풀이2.148ms
 """
+import sys
 from collections import deque
 
+input = sys.stdin.readline
 
-def bfs(cur_v):
-    visited[cur_v] = 1
-    q = deque()
-    q.append(cur_v)
-    while q:
-        cur_v = q.popleft()
-        if cur_v == K:
-            return visited[K] - 1
-        if cur_v - 1 >= 0 and not visited[cur_v - 1]:
-            visited[cur_v - 1] = visited[cur_v] + 1
-            q.append(cur_v - 1)
-        if cur_v + 1 <= 100000 and not visited[cur_v + 1]:
-            visited[cur_v + 1] = visited[cur_v] + 1
-            q.append(cur_v + 1)
-        if 2 * cur_v <= 100000 and not visited[2 * cur_v]:
-            visited[2 * cur_v] = visited[cur_v] + 1
-            q.append(2 * cur_v)
+n, k = map(int, input().split())
+visited = [False] * 100001
+queue = deque()
 
+visited[n] = True
+queue.append((n, 0))
 
-N, K = map(int, input().split())
-visited = [0] * 100001
-print(bfs(N))
+while queue:
+    x, distance = queue.popleft()
+    if x == k:
+        print(distance)
+        break
+
+    for dx in [1, -1, x]:
+        nx = x + dx
+        if nx < 0 or nx >= 100001 or visited[nx]:
+            continue
+
+        visited[nx] = True
+        queue.append((nx, distance + 1))

@@ -1,50 +1,36 @@
 """
 https://www.acmicpc.net/problem/2412
 2412.암벽 등반
-골드3
-풀이1.608ms
+풀이2.496ms
 """
-import collections
 import sys
+from collections import deque
+
 input = sys.stdin.readline
 
+n, t = map(int, input().split())
+locations = set(tuple(map(int, input().split())) for _ in range(n))
 
-def bfs():
-    visited = collections.defaultdict(int)
-    q = collections.deque()
-    q.append((0, 0))
-    visited[(0, 0)] = 1
+q = deque()
+visited = set()
+visited.add((0, 0))
+q.append((0, 0, 0))
+sheep_count = -1
+while q:
+    x, y, count = q.popleft()
 
-    while q:
-        x, y = q.popleft()
+    if y == t:
+        sheep_count = count
+        break
 
-        if y == T:
-            return visited[(x, y)] - 1
+    for nx in range(x - 2, x + 3):
+        for ny in range(y - 2, y + 3):
+            if (nx, ny) not in locations or (nx, ny) in visited:
+                continue
+            visited.add((nx, ny))
+            q.append((nx, ny, count + 1))
 
-        for dx in range(-2, 3):
-            for dy in range(-2, 3):
-                nx = x + dx
-                ny = y + dy
-                if nx < 0 or nx > 1000000 or ny < 0 or ny > T:
-                    continue
-                if (nx, ny) not in x_y:
-                    continue
-                if visited[(nx, ny)]:
-                    continue
-                visited[(nx, ny)] = visited[(x, y)] + 1
-                q.append((nx, ny))
-
-    return -1
-
-
-N, T = map(int, input().split())
-x_y = set()
-for _ in range(N):
-    x, y = map(int, input().split())
-    x_y.add((x, y))
-
-print(bfs())
-
+print(sheep_count)
 """
 2 4
 2 2

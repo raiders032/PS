@@ -1,50 +1,41 @@
 """
+https://www.acmicpc.net/problem/16926
 16926.배열 돌리기 1
 실버4
-구현
-풀이1. 220ms
+풀이2.
 """
 import sys
-from collections import deque
 
 input = sys.stdin.readline
+
 N, M, R = map(int, input().split())
-group_num = min(N, M) // 2
-board = [list(map(int, input().split())) for _ in range(N)]
-group = [deque() for _ in range(group_num)]
+board = [list(map(int, input().split())) for _ in range(M)]
+print(board)
 
-for gn in range(group_num):
-    for i in range(gn, M - gn - 1):
-        group[gn].append(board[gn][i])
 
-    for i in range(gn, N - gn - 1):
-        group[gn].append(board[i][M - gn - 1])
+def rotate(x, y, width, height):
+    print(f'x:{x}, y:{y}, width:{width}, height:{height}')
+    tmp = board[x][y]
 
-    for i in range(M - gn - 1, gn, -1):
-        group[gn].append(board[N - gn - 1][i])
+    for j in range(y, y + width - 1):
+        board[x][j] = board[x][j + 1]
 
-    for i in range(N - gn - 1, gn, -1):
-        group[gn].append(board[i][gn])
+    for i in range(x, x + height - 2):
+        board[i][y + width - 1] = board[i + 1][y + width - 1]
 
-for gn in range(len(group)):
-    r = R % len(group[gn])
+    for j in range(y + width - 1, y, -1):
+        board[x + height - 1][j] = board[x + height - 1][j - 1]
 
-    for j in range(r):
-        group[gn].append(group[gn].popleft())
+    for i in range(x + height - 1, x, -1):
+        board[i][y] = board[i - 1][y]
 
-    for j in range(gn, M - gn - 1):
-        board[gn][j] = group[gn].popleft()
+    board[x + 1][y] = tmp
 
-    for j in range(gn, N - gn - 1):
-        board[j][M - gn - 1] = group[gn].popleft()
 
-    for j in range(M - gn - 1, gn, -1):
-        board[N - gn - 1][j] = group[gn].popleft()
+i = 0
+while i < min(N, M) // 2:
+    for _ in range(R):
+        rotate(i, i, M - (2 * i), N - (2 * i))
+    i += 1
 
-    for j in range(N - gn - 1, gn, -1):
-        board[j][gn] = group[gn].popleft()
-
-for i in range(N):
-    for j in range(M):
-        print(board[i][j], end=' ')
-    print()
+print(board)

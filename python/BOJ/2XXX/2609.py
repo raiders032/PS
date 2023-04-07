@@ -1,19 +1,20 @@
-'''
+""""
 https://www.acmicpc.net/problem/2609
-2609번
+2609.최대공약수와 최소공배수
 실버5
-풀이1.68ms
-'''
-import sys
+풀이2.
+"""
 
 
-def get_gcd(a, b):
-    return a if b == 0 else get_gcd(b, a % b)
+def gcd(a, b):
+    if a < b:
+        a, b, = b, a
+    if b == 0:
+        return a
+    return gcd(b, a % b)
 
 
-N, M = map(int, sys.stdin.readline().split())
-print(get_gcd(N, M))
-print(N * M // get_gcd(N, M))
-
-
-
+a, b = map(int, input().split())
+gcd = gcd(a, b)
+print(gcd)
+print(a * b // gcd)

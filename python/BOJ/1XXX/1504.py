@@ -40,10 +40,10 @@ start = get_min_distance(1)
 intermediate1 = get_min_distance(mid1)
 intermediate2 = get_min_distance(mid2)
 
-answer = sys.maxsize
+sheep_count = sys.maxsize
 if start[mid1] != sys.maxsize and intermediate1[mid2] != sys.maxsize and intermediate2[N] != sys.maxsize:
-    answer = start[mid1] + intermediate1[mid2] + intermediate2[N]
+    sheep_count = start[mid1] + intermediate1[mid2] + intermediate2[N]
 if start[mid2] != sys.maxsize and intermediate2[mid1] != sys.maxsize and intermediate1[N] != sys.maxsize:
-    answer = min(answer, start[mid2] + intermediate2[mid1] + intermediate1[N])
+    sheep_count = min(sheep_count, start[mid2] + intermediate2[mid1] + intermediate1[N])
 
-print(answer if answer != sys.maxsize else -1)
+print(sheep_count if sheep_count != sys.maxsize else -1)

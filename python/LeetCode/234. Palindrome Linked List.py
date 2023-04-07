@@ -3,7 +3,7 @@ https://leetcode.com/problems/palindrome-linked-list/
 234.Palindrome Linked List
 Easy
 리스트
-풀이2.804ms
+풀이3.856ms
 """
 
 # Definition for singly-linked list.
@@ -13,14 +13,19 @@ Easy
 #         self.next = next
 class Solution:
     def isPalindrome(self, head: ListNode) -> bool:
-        list = []
+        nums = list()
 
         while head:
-            list.append(head.val)
+            nums.append(head.val)
             head = head.next
 
-        for i in range(len(list) // 2):
-            if list[i] != list[len(list) - i - 1]:
+        left = 0
+        right = len(nums) - 1
+
+        while left <= right:
+            if nums[left] != nums[right]:
                 return False
+            left += 1
+            right -= 1
 
         return True

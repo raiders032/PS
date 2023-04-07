@@ -7,10 +7,10 @@ https://www.acmicpc.net/problem/10815
 N = int(input())
 cards = set(map(int, input().split()))
 M = int(input())
-answer = ''
+sheep_count = ''
 for card in list(map(int, input().split())):
     if card in cards:
-        answer += '1 '
+        sheep_count += '1 '
     else:
-        answer += '0 '
-print(answer)
+        sheep_count += '0 '
+print(sheep_count)

@@ -28,7 +28,7 @@ def get_area(x, y):
 
 N = int(input())
 board = [list(map(int, input().rstrip())) for _ in range(N)]
-# print(board)
+# print(original_board)
 visited = [[False] * N for _ in range(N)]
 dx = [-1, 0, 1, 0]
 dy = [0, -1, 0, 1]

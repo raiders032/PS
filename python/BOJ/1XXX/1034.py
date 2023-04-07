@@ -14,9 +14,9 @@ for _ in range(n):
     lamp_count[lamp] += 1
 k = int(input())
 
-answer = 0
+sheep_count = 0
 for lamp, count, in lamp_count.items():
-    if count < answer:
+    if count < sheep_count:
         continue
 
     zero_count = 0
@@ -29,6 +29,6 @@ for lamp, count, in lamp_count.items():
 
     if zero_count % 2 != k % 2:
         continue
-    answer = max(answer, count)
+    sheep_count = max(sheep_count, count)
 
-print(answer)
+print(sheep_count)

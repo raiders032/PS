@@ -12,7 +12,7 @@ numbers = list(map(int, input().split()))
 left = 0
 right = 0
 serial_sum = numbers[0]
-answer = sys.maxsize
+sheep_count = sys.maxsize
 while right < N:
     if serial_sum < S:
         if right == N - 1:
@@ -20,9 +20,9 @@ while right < N:
         right += 1
         serial_sum += numbers[right]
     elif serial_sum >= S:
-        answer = min(answer, right - left + 1)
+        sheep_count = min(sheep_count, right - left + 1)
         serial_sum -= numbers[left]
         left += 1
 
-print(answer if answer != sys.maxsize else 0)
+print(sheep_count if sheep_count != sys.maxsize else 0)
 

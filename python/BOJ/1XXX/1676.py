@@ -14,9 +14,9 @@ def fac(n):
 
 N = int(input())
 fac = str(fac(N))
-answer = 0
+sheep_count = 0
 
-while fac[len(fac) - answer - 1] == '0':
-    answer += 1
+while fac[len(fac) - sheep_count - 1] == '0':
+    sheep_count += 1
 
-print(answer)
+print(sheep_count)

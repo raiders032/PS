@@ -2,38 +2,30 @@
 https://www.acmicpc.net/problem/2011
 2011.암호코드
 실버1
-풀이1.120ms
+풀이2.96ms
 """
-from collections import defaultdict
 import sys
-sys.setrecursionlimit(10**6)
+sys.setrecursionlimit(10 ** 6)
 
 
-def solve(string):
-    if string in cache:
-        return cache[string]
-
-    if not string:
+def decode(code):
+    if code in cache:
+        return cache[code]
+    if code == '':
         return 1
 
-    number = int(string[-1])
-
-    if 1 <= number <= 9:
-        cache[string] += solve(string[:-1])
-        cache[string] %= 1000000
-
-    if len(string) <= 1:
-        return cache[string]
-
-    number = int(string[-2:])
-
-    if 10 <= number <= 26:
-        cache[string] += solve(string[:-2])
-        cache[string] %= 1000000
-
-    return cache[string]
+    cache[code] = 0
+    if 0 < int(code[-1:]):
+        cache[code] += decode(code[:-1])
+    if 10 <= int(code[-2:]) <= 26:
+        cache[code] += decode(code[:-2])
+    if cache[code] == 0:
+        print(0)
+        exit()
+    cache[code] %= 1000000
+    return cache[code]
 
 
-string = input()
-cache = defaultdict(int)
-print(solve(string))
+code = input()
+cache = dict()
+print(decode(code))

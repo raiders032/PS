@@ -20,9 +20,9 @@ class Solution:
             depth += 1
             for _ in range(len(q)):
                 cur_node = q.popleft()
-                if cur_node.right:
-                    q.append(cur_node.right)
-                if cur_node.left:
-                    q.append(cur_node.left)
+                if cur_node.high:
+                    q.append(cur_node.high)
+                if cur_node.low:
+                    q.append(cur_node.low)
 
         return depth

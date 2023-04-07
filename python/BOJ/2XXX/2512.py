@@ -2,7 +2,7 @@
 https://www.acmicpc.net/problem/2512
 2512.예산
 실버3
-풀이1.80ms
+풀이2
 """
 
 

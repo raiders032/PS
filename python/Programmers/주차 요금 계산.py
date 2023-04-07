@@ -1,6 +1,6 @@
 """
 https://school.programmers.co.kr/learn/courses/30/lessons/92341
-92341.주차 요금 계산
+주차 요금 계산
 풀이1.100점
 """
 from collections import defaultdict

@@ -29,7 +29,7 @@ for _ in range(int(input())):
     R, C = map(int, input().split())
     edge = []
     disjoint_set = [i for i in range(R * C)]
-    answer = 0
+    sheep_count = 0
 
     for r in range(R):
         weights = map(int, input().split())
@@ -47,6 +47,6 @@ for _ in range(int(input())):
         if find(vertex1) == find(vertex2):
             continue
         union(vertex1, vertex2)
-        answer += weight
+        sheep_count += weight
 
-    print(answer)
+    print(sheep_count)

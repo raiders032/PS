@@ -3,7 +3,7 @@ package boj.p11000;
 /**
  * https://www.acmicpc.net/problem/11286
  * 11286.절댓값 힙
- * 풀이1.660ms
+ * 풀이2
  */
 
 
@@ -11,47 +11,47 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.PriorityQueue;
+import java.util.Queue;
 
 public class P11286 {
 
-    static class Value implements Comparable<Value> {
-
-        int num;
-        int abs;
-
-        public Value(int num, int abs) {
-            this.num = num;
-            this.abs = abs;
-        }
-
-        @Override
-        public int compareTo(Value o) {
-            if (this.abs == o.abs) {
-                return this.num - o.num;
-            } else {
-                return this.abs - o.abs;
-            }
-        }
-    }
-
     public static void main(String[] args) throws IOException {
-        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-        int n = Integer.parseInt(br.readLine());
-        PriorityQueue<Value> pq = new PriorityQueue<>();
+        BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(System.in));
+        int n = Integer.parseInt(bufferedReader.readLine());
+        StringBuilder stringBuilder = new StringBuilder();
+
+        Queue<Integer> heap = new PriorityQueue<>((num1, num2) -> {
+            int num1Abs = Math.abs(num1);
+            int num2Abs = Math.abs(num2);
+
+            if (num1Abs < num2Abs) {
+                return -1;
+            } else if (num1Abs > num2Abs) {
+                return 1;
+            }
+
+            if (num1 < num2) {
+                return -1;
+            } else if (num1 > num2) {
+                return 1;
+            }
+            return 0;
+        });
 
         for (int i = 0; i < n; i++) {
-            int num = Integer.parseInt(br.readLine());
-
-            if (num == 0) {
-                if (pq.size() != 0) {
-                    Value value = pq.poll();
-                    System.out.println(value.num);
-                } else {
-                    System.out.println(0);
+            int number = Integer.parseInt(bufferedReader.readLine());
+            if (number == 0) {
+                if (heap.size() == 0) {
+                    stringBuilder.append("0").append("\n");
+                    continue;
                 }
-            } else {
-                pq.add(new Value(num, Math.abs(num)));
+                stringBuilder.append(heap.remove()).append("\n");
+                continue;
             }
+            heap.add(number);
         }
+
+        System.out.println(stringBuilder);
+
     }
 }

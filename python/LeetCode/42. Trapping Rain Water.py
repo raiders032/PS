@@ -42,7 +42,7 @@ class Solution:
     def trap(self, heights: List[int]) -> int:
         if not heights:
             return 0
-        answer = 0
+        sheep_count = 0
         max_height = max(heights)
         left = 0
         left_max_height = 0
@@ -52,16 +52,16 @@ class Solution:
         while left < right:
             if left_max_height <= right_max_height < max_height:
                 if heights[right] <= right_max_height:
-                    answer += right_max_height - heights[right]
+                    sheep_count += right_max_height - heights[right]
                 else:
                     right_max_height = heights[right]
                 right = right - 1 if right_max_height != max_height else right
             else:
                 if heights[left] <= left_max_height:
-                    answer += left_max_height - heights[left]
+                    sheep_count += left_max_height - heights[left]
                 else:
                     left_max_height = heights[left]
                 left += 1
 
-        return answer
+        return sheep_count
 """

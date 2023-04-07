@@ -2,21 +2,21 @@
 https://www.acmicpc.net/problem/2075
 2075.N번째 큰 수
 골드5
-풀이1.728ms
+풀이2.
 """
 import sys
 import heapq
 
 input = sys.stdin.readline
 N = int(input())
-board = list()
-max_heap = []
-num = 0
-for _ in range(N):
-    board.append(list(map(int, input().strip().split())))
-for i in range(N):
-    heapq.heappush(max_heap, (-board[N - 1][i], N - 1, i))
-for _ in range(N):
-    (num, x, y) = heapq.heappop(max_heap)
-    heapq.heappush(max_heap, (-board[x - 1][y], x - 1, y))
-print(-num)
+min_heap = list(map(int, input().split()))
+heapq.heapify(min_heap)
+print(f'min:{min_heap[0]}')
+for i in range(N - 1):
+    for num in map(int, input().split()):
+        if min_heap[0] < num:
+            heapq.heappush(min_heap, num)
+            heapq.heappop(min_heap)
+    print(f'min:{min_heap[0]}')
+
+print(min_heap[0])

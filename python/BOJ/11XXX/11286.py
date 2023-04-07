@@ -2,7 +2,7 @@
 https://www.acmicpc.net/problem/11286
 11286.절댓값 힙
 실버1
-풀이2.296ms
+풀이3.172ms
 """
 import sys
 import heapq

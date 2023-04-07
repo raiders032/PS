@@ -6,7 +6,7 @@ https://www.acmicpc.net/problem/9663
 
 
 def solve(row):
-    global answer
+    global sheep_count
     if row == N:
         return
 
@@ -20,11 +20,11 @@ def solve(row):
         col_visited[col] = left_diag_visited[row - col] = right_diag_visited[row + col] = False
 
 
-answer = 0
+sheep_count = 0
 N = int(input())
 col_visited = [False] * N
 left_diag_visited = [False] * (2 * N - 1)
 right_diag_visited = [False] * (2 * N - 1)
 
 solve(0)
-print(answer)
+print(sheep_count)

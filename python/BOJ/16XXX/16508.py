@@ -1,32 +1,43 @@
 """
 https://www.acmicpc.net/problem/16508
 16508.전공책
-풀이1.1800ms(PyPy3)
+풀이2.100ms
 """
-import itertools
 import sys
 from collections import Counter
-
 input = sys.stdin.readline
+
+
+def select_book(index, total_price):
+    global alphabet_count, sheep_count
+    if index == N:
+        is_valid = True
+        temp = Counter(alphabet_count)
+        for alphabet in title:
+            if alphabet not in temp or temp[alphabet] == 0:
+                is_valid = False
+                break
+            temp[alphabet] -= 1
+        if is_valid:
+            answer = min(answer, total_price)
+        return
+    if answer <= total_price:
+        return
+
+    current_counter = Counter(books[index][1])
+
+    alphabet_count += current_counter
+    select_book(index + 1, total_price + int(books[index][0]))
+    alphabet_count -= current_counter
+
+    select_book(index + 1, total_price)
+
 
 title = input().rstrip()
 N = int(input())
 books = [tuple(input().split()) for _ in range(N)]
-answer = sys.maxsize
-for i in range(1, N + 1):
-    for selected_books in itertools.combinations(books, i):
-        total_price = 0
-        char_count = Counter()
-        for selected_book in selected_books:
-            total_price += int(selected_book[0])
-            char_count += Counter(selected_book[1])
-        is_valid = True
-        for char in title:
-            if char not in char_count or char_count[char] == 0:
-                is_valid = False
-                break
-            char_count[char] -= 1
-
-        if is_valid:
-            answer = min(answer, total_price)
-print(answer if answer != sys.maxsize else -1)
+sheep_count = sys.maxsize
+count = 0
+alphabet_count = Counter()
+select_book(0, 0)
+print(sheep_count if sheep_count != sys.maxsize else -1)

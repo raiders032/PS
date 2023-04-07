@@ -1,22 +1,21 @@
 """
 https://www.acmicpc.net/problem/1715
 1715.카드 정렬하기
-골드4
-풀이1.228ms
+풀이2.224ms
 """
-import sys, heapq
-
+import sys
+import heapq
 input = sys.stdin.readline
 
 N = int(input())
-cards = []
-ans = 0
+min_heap = []
 for _ in range(N):
-    heapq.heappush(cards, int(input()))
+    heapq.heappush(min_heap, int(input()))
 
-while len(cards) > 1:
-    count = heapq.heappop(cards) + heapq.heappop(cards)
-    ans += count
-    heapq.heappush(cards, count)
-
-print(ans)
+sheep_count = 0
+while len(min_heap) != 1:
+    min_card1 = heapq.heappop(min_heap)
+    min_card2 = heapq.heappop(min_heap)
+    sheep_count += min_card1 + min_card2
+    heapq.heappush(min_heap, min_card1 + min_card2)
+print(sheep_count)

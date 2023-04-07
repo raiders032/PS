@@ -3,15 +3,14 @@ https://www.acmicpc.net/problem/2581
 2581.소수
 실버5
 수학
-풀이2
+풀이2.72ms
 """
 from math import sqrt
-import sys
 
 N = int(input())
 M = int(input())
 is_prime = [True] * (M + 1)
-
+is_prime[1] = False
 for i in range(2, int(sqrt(M + 1)) + 1):
     if not is_prime[i]:
         continue
@@ -26,7 +25,7 @@ for i in range(N, M + 1):
         sum += i
         min_prime = min(min_prime, i)
 
-if min_prime != 987654321:
+if sum:
     print(sum)
     print(min_prime)
 else:

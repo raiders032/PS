@@ -1,7 +1,7 @@
 """
 https://www.acmicpc.net/problem/1654
 1654.랜선 자르기
-풀이3.120ms
+풀이4.132ms
 """
 import sys
 

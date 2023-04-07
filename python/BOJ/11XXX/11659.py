@@ -15,7 +15,7 @@ for i in range(1, N):
 
 for _ in range(M):
     start, end = map(lambda x: int(x) - 1, input().split())
-    answer = sums[end]
+    sheep_count = sums[end]
     if start:
-        answer -= sums[start - 1]
-    print(answer)
+        sheep_count -= sums[start - 1]
+    print(sheep_count)

@@ -18,17 +18,17 @@ for i in range(N):
         max_height = pillars[i][1]
         max_index = i
 
-answer = max_height
+sheep_count = max_height
 left = [pillars[0]]
 for i in range(1, max_index + 1):
     if left[-1][1] <= pillars[i][1]:
-        answer += left[-1][1] * (pillars[i][0] - left[-1][0])
+        sheep_count += left[-1][1] * (pillars[i][0] - left[-1][0])
         left.append(pillars[i])
 
 right = [pillars[N - 1]]
 for i in range(N - 2, max_index - 1, -1):
     if right[-1][1] <= pillars[i][1]:
-        answer += right[-1][1] * (right[-1][0] - pillars[i][0])
+        sheep_count += right[-1][1] * (right[-1][0] - pillars[i][0])
         right.append(pillars[i])
 
-print(answer)
+print(sheep_count)

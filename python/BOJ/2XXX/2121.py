@@ -10,7 +10,7 @@ input = sys.stdin.readline
 N = int(input())
 A, B = map(int, input().split())
 points = set()
-answer = 0
+sheep_count = 0
 
 for _ in range(N):
     x, y = map(int, input().split())
@@ -28,6 +28,6 @@ for x, y in points:
             is_valid = False
             break
     if is_valid:
-        answer += 1
+        sheep_count += 1
 
-print(answer)
+print(sheep_count)

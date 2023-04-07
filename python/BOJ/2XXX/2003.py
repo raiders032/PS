@@ -3,33 +3,23 @@ https://www.acmicpc.net/problem/2003
 2003.수들의 합 2
 실버3
 두포인터
-풀이1.80ms
+풀이2.84ms
 """
-import sys
-
-input = sys.stdin.readline
 N, M = map(int, input().split())
-arr = list(map(int, input().split()))
-left = 0
-right = 0
-sum = arr[0]
-res = 0
+nums = list(map(int, input().split()))
+left = right = 0
+total = nums[0]
+sheep_count = 0
 
 while right < N:
-    if sum == M:
-        res += 1
+    if total <= M:
+        if total == M:
+            sheep_count += 1
         right += 1
-        if right >= N:
-            break
-        sum += arr[right]
-        sum -= arr[left]
+        if right < N:
+            total += nums[right]
+    else:
+        total -= nums[left]
         left += 1
-    elif sum > M:
-        sum -= arr[left]
-        left += 1
-    elif sum < M:
-        right += 1
-        if right >= N:
-            break
-        sum += arr[right]
-print(res)
+
+print(sheep_count)
