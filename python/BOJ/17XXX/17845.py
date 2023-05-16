@@ -1,34 +1,26 @@
 """
 https://www.acmicpc.net/problem/17845
 17845.수강 과목
-골드5
-풀이1.
+풀이1.352ms(PyPy3)
 """
 import sys
 
-
-def solve(K, N):
-    if K == 0 or N == 0:
-        return 0
-
-    if cache[K][N] == -1:
-        cache[K][N] = solve(K - 1, N)
-        if times[K] <= N:
-            cache[K][N] = max(cache[K][N], solve(K - 1, N - times[K]) + priorities[K])
-
-    return cache[K][N]
-
-
 input = sys.stdin.readline
-N, K = map(int, input().split())
-priorities = [0]
-times = [0]
 
-for _ in range(K):
-    priority, time = map(int, input().split())
-    priorities.append(priority)
-    times.append(time)
+n, k = map(int, input().split())
+weight = [0]
+price = [0]
+cache = [[0] * (n + 1) for _ in range(k + 1)]
 
-cache = [[-1] * (N + 1) for _ in range(K + 1)]
+for _ in range(k):
+    p, w = map(int, input().split())
+    weight.append(w)
+    price.append(p)
 
-print(solve(K, N))
+for i in range(1, k + 1):
+    for j in range(n + 1):
+        cache[i][j] = cache[i - 1][j]
+        if j - weight[i] >= 0:
+            cache[i][j] = max(cache[i][j], cache[i - 1][j - weight[i]] + price[i])
+
+print(cache[k][n])
