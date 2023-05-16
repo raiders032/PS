@@ -1,21 +1,20 @@
 """
 https://www.acmicpc.net/problem/15652
 15652.N과 M (4)
-실버3
-풀이1.76ms
+풀이2.56ms
 """
+import sys
+input = sys.stdin.readline
+n, m = map(int, input().split())
 
 
-def solve(index):
-    if len(selected) == M:
+def dfs(level, start, selected):
+    if level == m:
         print(' '.join(map(str, selected)))
         return
-    for i in range(index, N + 1):
-        selected.append(i)
-        solve(i)
-        selected.pop()
+
+    for i in range(start, n):
+        dfs(level + 1, i, selected + [i + 1])
 
 
-N, M = map(int, input().split())
-selected = []
-solve(1)
+dfs(0, 0, [])
